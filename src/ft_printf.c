@@ -6,7 +6,7 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:32:24 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/05/16 11:18:46 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:19:39 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ static int	print_args(const char *str, int i, va_list ap)
 	else if (str[i] == '%')
 		ft_putchar_fd('%', 1);
 	else if (str[i] == 's')
-		len = ft_putstr_fd(va_arg(ap, char *), 1);
+		len = ft_print_str(va_arg(ap, char *));
 	else if (str[i] == 'd' || str[i] == 'i')
-		len = ft_putstr_fd (ft_itoa(va_arg(ap, int)), 1);
+		len = ft_print_di(va_arg(ap, int));
 	else if (str[i] == 'p')
-		len = ft_printpointer(va_arg(ap, char *));
+		len = ft_print_pointer(va_arg(ap, char *), "0123456789abcdef");
 	else if (str[i] == 'u')
-		len = ft_putstr_fd(ft_utoa(va_arg(ap, unsigned int)), 1);
+		len = ft_print_u(va_arg(ap, unsigned int));
 	else if (str[i] == 'x')
-		len = ft_printhex(va_arg(ap, char *), "0123456789abcdef");
+		len = ft_print_hex(va_arg(ap, char *), "0123456789abcdef");
 	else if (str[i] == 'X')
-		len = ft_printhex(va_arg(ap, char *), "0123456789ABCDEF");
+		len = ft_print_hex(va_arg(ap, char *), "0123456789ABCDEF");
 	return (len);
 }
 

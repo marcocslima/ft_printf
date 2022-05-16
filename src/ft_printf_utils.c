@@ -6,13 +6,50 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:34:18 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/05/16 11:10:01 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/05/17 01:18:53 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-int	ft_printhex(void *n, char *base)
+int	ft_print_str(char *str)
+{
+	int	len;
+	
+	len = 0;
+	if (str == NULL)
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
+	ft_putstr_fd(str, 1);
+	len = ft_strlen(str);
+	return (len);
+}
+
+int ft_print_di(int n)
+{
+	int		len;
+	char	*nbr;
+
+	nbr = ft_itoa(n);
+	len = ft_putstr_fd(nbr, 1);
+	free(nbr);
+	return (len);
+}
+
+int ft_print_u(unsigned int n)
+{
+	int		len;
+	char	*nbr;
+
+	nbr = ft_utoa(n);
+	len = ft_putstr_fd(nbr, 1);
+	free(nbr);
+	return (len);
+}
+
+int	ft_print_hex(void *n, char *base)
 {
 	unsigned long	ntmp;
 	int				len;
@@ -33,20 +70,20 @@ int	ft_printhex(void *n, char *base)
 		hex[--len] = base[ntmp % 16];
 		ntmp = ntmp / 16;
 	}
+	len = ft_strlen (hex);
 	ft_putstr_fd (hex, 1);
-	return (ft_strlen (hex));
+	free(hex);
+	return (len);
 }
 
-int	ft_printpointer(void *n)
+int	ft_print_pointer(void *n, char *base)
 {
 	unsigned long	ntmp;
 	int				len;
-	char			*b_lower;
 	char			*hex;
 
 	ntmp = (unsigned long) n;
 	len = 3;
-	b_lower = "0123456789abcdef";
 	while (ntmp > 0)
 	{
 		ntmp = ntmp / 16;
@@ -59,9 +96,11 @@ int	ft_printpointer(void *n)
 	hex[--len] = '\0';
 	while (len > 2)
 	{
-		hex[--len] = b_lower[ntmp % 16];
+		hex[--len] = base[ntmp % 16];
 		ntmp = ntmp / 16;
 	}
-	ft_putstr_fd(hex, 1);
-	return (ft_strlen(hex));
+	len = ft_strlen (hex);
+	ft_putstr_fd (hex, 1);
+	free(hex);
+	return (len);
 }
