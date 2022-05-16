@@ -6,35 +6,35 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:34:18 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/05/14 20:49:28 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/05/16 10:28:16 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-char	*dec_to_hex(int n)
+int	ft_printhex(void *n, char *base)
 {
-	int		ntmp;
-	int		len;
-	char	*b_lower = "0123456789abcdef";
-	char	*hex;
+	unsigned long	ntmp;
+	int				len;
+	char			*hex;
 
-	ntmp = n;
-	len = 0;
+	ntmp = (unsigned long) n;
+	len = 1;
 	while (ntmp > 0)
 	{
 		ntmp = ntmp / 16;
 		len++;
 	}
-	hex = malloc((len + 1) * sizeof(char));
-	hex[len--] = '\0';
-	while (len >= 0)
+	ntmp = (unsigned long) n;
+	hex = malloc((len) * sizeof(char));
+	hex[--len] = '\0';
+	while (len > 0)
 	{
-		hex[len] = b_lower[n % 16];
-		n = n / 16;
-		len--;
+		hex[--len] = base[ntmp % 16];
+		ntmp = ntmp / 16;
 	}
-	return (hex);
+	ft_putstr_fd(hex,1);
+	return (ft_strlen(hex));
 }
 
 int	ft_printpointer(void *n)
