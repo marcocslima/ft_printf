@@ -6,16 +6,16 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:32:24 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/05/16 10:51:35 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:18:46 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-static int print_args(const char *str, int i, va_list ap)
+static int	print_args(const char *str, int i, va_list ap)
 {
-	int len;
-	
+	int	len;
+
 	len = 1;
 	if (str[i] == 'c')
 		ft_putchar_fd(va_arg(ap, int), 1);
@@ -24,7 +24,7 @@ static int print_args(const char *str, int i, va_list ap)
 	else if (str[i] == 's')
 		len = ft_putstr_fd(va_arg(ap, char *), 1);
 	else if (str[i] == 'd' || str[i] == 'i')
-		len = ft_putstr_fd(ft_itoa(va_arg(ap, int)),1);
+		len = ft_putstr_fd (ft_itoa(va_arg(ap, int)), 1);
 	else if (str[i] == 'p')
 		len = ft_printpointer(va_arg(ap, char *));
 	else if (str[i] == 'u')
@@ -38,24 +38,24 @@ static int print_args(const char *str, int i, va_list ap)
 
 int	ft_printf(const char *str, ...)
 {
-	int i;
-	int counter;
-	va_list ap;
-	va_start (ap, str);
+	int			i;
+	int			counter;
+	va_list		args;
 
+	va_start (args, str);
 	i = 0;
 	counter = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '%' && ft_strchr("cspdiuxX%", str[i+1]))
+		if (str[i] == '%' && ft_strchr("cspdiuxX%", str[i + 1]))
 		{
-			counter += print_args(str, i + 1, ap);
+			counter += print_args(str, i + 1, args);
 			i = i + 2;
 		}
 		ft_putchar_fd(str[i], 1);
 		i++;
 		counter++;
 	}
-	va_end (ap);
+	va_end (args);
 	return (counter);
 }

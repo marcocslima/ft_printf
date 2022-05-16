@@ -6,7 +6,7 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:34:18 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/05/16 10:28:16 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/05/16 11:10:01 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,20 @@ int	ft_printhex(void *n, char *base)
 		hex[--len] = base[ntmp % 16];
 		ntmp = ntmp / 16;
 	}
-	ft_putstr_fd(hex,1);
-	return (ft_strlen(hex));
+	ft_putstr_fd (hex, 1);
+	return (ft_strlen (hex));
 }
 
 int	ft_printpointer(void *n)
 {
 	unsigned long	ntmp;
 	int				len;
-	char			*b_lower = "0123456789abcdef";
+	char			*b_lower;
 	char			*hex;
 
 	ntmp = (unsigned long) n;
 	len = 3;
+	b_lower = "0123456789abcdef";
 	while (ntmp > 0)
 	{
 		ntmp = ntmp / 16;
@@ -61,6 +62,6 @@ int	ft_printpointer(void *n)
 		hex[--len] = b_lower[ntmp % 16];
 		ntmp = ntmp / 16;
 	}
-	ft_putstr_fd(hex,1);
+	ft_putstr_fd(hex, 1);
 	return (ft_strlen(hex));
 }
