@@ -6,7 +6,7 @@
 #    By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 21:00:15 by mcesar-d          #+#    #+#              #
-#    Updated: 2022/05/16 03:08:22 by mcesar-d         ###   ########.fr        #
+#    Updated: 2022/05/18 05:03:27 by mcesar-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,6 @@ $(DIR_O)/%.o:	$(DIR_S)/%.c $(HEADER)/ft_printf.h
 				@mkdir -p obj
 				@$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
 
-test:			$(NAME)
-				@make -C Test
-
 norm:
 				norminette ./libft/
 				@echo
@@ -51,7 +48,6 @@ clean:
 fclean:			clean
 				@rm -f $(NAME)
 				@make fclean -C $(LIBFT)
-				@make fclean -C Test
 
 re:				fclean all
 
