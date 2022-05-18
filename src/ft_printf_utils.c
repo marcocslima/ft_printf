@@ -6,7 +6,7 @@
 /*   By: mcesar-d <mcesar-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:34:18 by mcesar-d          #+#    #+#             */
-/*   Updated: 2022/05/17 01:18:53 by mcesar-d         ###   ########.fr       */
+/*   Updated: 2022/05/18 03:54:14 by mcesar-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_print_str(char *str)
 {
 	int	len;
-	
+
 	len = 0;
 	if (str == NULL)
 	{
@@ -27,7 +27,7 @@ int	ft_print_str(char *str)
 	return (len);
 }
 
-int ft_print_di(int n)
+int	ft_print_di(int n)
 {
 	int		len;
 	char	*nbr;
@@ -38,7 +38,7 @@ int ft_print_di(int n)
 	return (len);
 }
 
-int ft_print_u(unsigned int n)
+int	ft_print_u(unsigned int n)
 {
 	int		len;
 	char	*nbr;
@@ -49,21 +49,20 @@ int ft_print_u(unsigned int n)
 	return (len);
 }
 
-int	ft_print_hex(void *n, char *base)
+int	ft_print_hex(unsigned long long int n, char *base)
 {
-	unsigned long	ntmp;
-	int				len;
-	char			*hex;
+	unsigned long long int	ntmp;
+	int						len;
+	char					*hex;
 
-	ntmp = (unsigned long) n;
-	len = 1;
-	while (ntmp > 0)
+	ntmp = (unsigned int) n;
+	len = 1 + ft_nbrlen(ntmp, 16);
+	if (ntmp == 0)
 	{
-		ntmp = ntmp / 16;
-		len++;
+		ft_putstr_fd ("0", 1);
+		return (1);
 	}
-	ntmp = (unsigned long) n;
-	hex = malloc((len) * sizeof(char));
+	hex = malloc(len * sizeof(char));
 	hex[--len] = '\0';
 	while (len > 0)
 	{
@@ -83,13 +82,9 @@ int	ft_print_pointer(void *n, char *base)
 	char			*hex;
 
 	ntmp = (unsigned long) n;
-	len = 3;
-	while (ntmp > 0)
-	{
-		ntmp = ntmp / 16;
-		len++;
-	}
-	ntmp = (unsigned long) n;
+	if (ntmp == 0)
+		return (write(1, "(nil)", 5));
+	len = 3 + ft_nbrlen(ntmp, 16);
 	hex = malloc((len) * sizeof(char));
 	hex[0] = '0';
 	hex[1] = 'x';
